@@ -1,0 +1,38 @@
+[
+  {
+    "id": 2,
+    "name": "Introduktion till Python",
+    "description": "Lär dig grunderna i Python-programmering, inklusive variabler, loopar och funktioner.",
+    "teacher": "Maria Svensson",
+    "duration": "8 veckor",
+    "level": "Beginner",
+    "category": "Programmering"
+  },
+  {
+    "id": 3,
+    "name": "Avancerad JavaScript",
+    "description": "Fördjupa dina JavaScript-kunskaper med moderna tekniker som asynkron programmering och ES6+.",
+    "teacher": "Erik Johansson",
+    "duration": "10 veckor",
+    "level": "Avancerad",
+    "category": "Programmering"
+  },
+  {
+    "id": 4,
+    "name": "UI/UX Design",
+    "description": "Lär dig att designa användargränssnitt och skapa användarupplevelser som är både funktionella och estetiskt tilltalande.",
+    "teacher": "Linda Nilsson",
+    "duration": "12 veckor",
+    "level": "Intermediate",
+    "category": "Design"
+  },
+  {
+    "id": 5,
+    "name": "Data Science med R",
+    "description": "En kurs i dataanalys och visualisering med hjälp av R-programmeringsspråket.",
+    "teacher": "Anders Karlsson",
+    "duration": "10 veckor",
+    "level": "Intermediate",
+    "category": "Data Science"
+  }
+]

@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "make": "Volvo",
+    "model": "XC90",
+    "year": 2021,
+    "color": "Black"
+  },
+  {
+    "id": 2,
+    "make": "BMW",
+    "model": "X5",
+    "year": 2020,
+    "color": "White"
+  },
+  {
+    "id": 3,
+    "make": "Audi",
+    "model": "A4",
+    "year": 2019,
+    "color": "Red"
+  },
+  {
+    "id": 4,
+    "make": "Tesla",
+    "model": "Model 3",
+    "year": 2022,
+    "color": "Blue"
+  }
+]
