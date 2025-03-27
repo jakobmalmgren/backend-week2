@@ -1,0 +1,5 @@
+2025-03-27 11:55:46 [INFO]:GET /kalle
+2025-03-27 12:05:27 [INFO]:GET /error
+2025-03-27 12:05:27 [ERROR]:Fel:simulerat kastat fel
+2025-03-27 12:05:27 [INFO]:GET /error
+2025-03-27 12:05:27 [ERROR]:Fel:simulerat kastat fel
