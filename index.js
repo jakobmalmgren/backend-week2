@@ -1,6 +1,8 @@
 import express from "express";
 import morgan from "morgan";
 import dotenv from "dotenv";
+import prodRouter, { logger } from "./router/products.js";
+import statusRouter from "./router/status.js";
 // import { logRequests2 } from "./middlewarefolder/logger.js";
 // import errorHandler from "./middlewarefolder/errorhandler.js";
 // import requestCounter from "./middlewarefolder/requestCounter.js";
@@ -34,56 +36,56 @@ const KEY = process.env.KEY;
 // });
 
 //1
-const logger = (req, res, next) => {
-  console.log(
-    `[${new Date().toISOString()}] your method is ${req.method}, URL: ${
-      req.url
-    }  `
-  );
-  next(); // om inte next kommer den stanna vid första rutten ex get o bara få info
-  // om url etc där o intte info om ex POST requesten..
-};
+// const logger = (req, res, next) => {
+//   console.log(
+//     `[${new Date().toISOString()}] your method is ${req.method}, URL: ${
+//       req.url
+//     }  `
+//   );
+//   next(); // om inte next kommer den stanna vid första rutten ex get o bara få info
+//   // om url etc där o intte info om ex POST requesten..
+// };
 
 //2
-const time = (req, res, next) => {
-  const startTime = Date.now();
+// const time = (req, res, next) => {
+//   const startTime = Date.now();
 
-  res.on("finish", () => {
-    const duration = Date.now() - startTime;
-    console.log(`time took ${duration} ms`);
-  });
-  next();
-};
+//   res.on("finish", () => {
+//     const duration = Date.now() - startTime;
+//     console.log(`time took ${duration} ms`);
+//   });
+//   next();
+// };
 //4
-const ipLogger = (req, res, next) => {
-  const ip = req.ip;
-  const date = new Date().toISOString().replace("T", " ").slice(0, 19);
-  const url = req.url;
-  const method = req.method;
-  console.log(`This is the logger:[${date}] ${method} ${url} - IP:${ip}`);
-  next();
-};
+// const ipLogger = (req, res, next) => {
+//   const ip = req.ip;
+//   const date = new Date().toISOString().replace("T", " ").slice(0, 19);
+//   const url = req.url;
+//   const method = req.method;
+//   console.log(`This is the logger:[${date}] ${method} ${url} - IP:${ip}`);
+//   next();
+// };
 
 //5
-const authentification = (req, res, next) => {
-  if (req.method === "GET") {
-    return next(); // Tillåt GET utan autentisering
-  }
-  const reqApiKey = req.headers["x-api-key"];
-  if (reqApiKey === KEY) {
-    console.log("Key is valid");
-    next();
-  } else if (!reqApiKey) {
-    return res.status(401).send({ message: "Unauthorized" });
-  } else if (reqApiKey !== KEY) {
-    return res.status(401).send({ message: "fel nyckel" });
-  }
-};
+// const authentification = (req, res, next) => {
+//   if (req.method === "GET") {
+//     return next(); // Tillåt GET utan autentisering
+//   }
+//   const reqApiKey = req.headers["x-api-key"];
+//   if (reqApiKey === KEY) {
+//     console.log("Key is valid");
+//     next();
+//   } else if (!reqApiKey) {
+//     return res.status(401).send({ message: "Unauthorized" });
+//   } else if (reqApiKey !== KEY) {
+//     return res.status(401).send({ message: "fel nyckel" });
+//   }
+// };
 
-const authentificationLogger = (req, res, next) => {
-  const key = req.headers["x-api-key"];
-  console.log(`autentifiseringslogger med key: ${key ? key : "no key"}`);
-};
+// const authentificationLogger = (req, res, next) => {
+//   const key = req.headers["x-api-key"];
+//   console.log(`autentifiseringslogger med key: ${key ? key : "no key"}`);
+// };
 
 // Uppgift:
 // Skapa en autentiseringsmiddleware som kräver en API-nyckel i headers:
@@ -97,34 +99,30 @@ const authentificationLogger = (req, res, next) => {
 /////////////////////////////////////////////////////////////////
 
 //1
-app.use(logger);
+// app.use(logger);
 
 //2
-app.use(time);
+// app.use(time);
 
 //4
-app.use(ipLogger);
+// app.use(ipLogger);
 
 // 5
-app.use(authentification);
-app.use(authentificationLogger);
+// app.use(authentification);
+// app.use(authentificationLogger);
 
-app.get("/", (req, res) => {
-  res.send("get");
-});
-app.post("/", (req, res) => {
-  res.send("post");
-});
-app.put("/", (req, res) => {
-  res.send("put");
-});
-app.delete("/:id", (req, res) => {
-  res.send("delete");
-});
-
-app.listen(PORT, () => {
-  console.log(`servern körs på : http://localhost:${PORT}`);
-});
+// app.get("/", (req, res) => {
+//   res.send("get");
+// });
+// app.post("/", (req, res) => {
+//   res.send("post");
+// });
+// app.put("/", (req, res) => {
+//   res.send("put");
+// });
+// app.delete("/:id", (req, res) => {
+//   res.send("delete");
+// });
 
 // Lätta övningar
 
@@ -176,3 +174,11 @@ app.listen(PORT, () => {
 
 // Tips:
 // Använd dotenv för att hantera miljövariabler.
+app.use(express.json());
+app.use(logger);
+app.use("/products", prodRouter);
+app.use("/api/status", statusRouter);
+
+app.listen(PORT, () => {
+  console.log(`servern körs på : http://localhost:${PORT}`);
+});
